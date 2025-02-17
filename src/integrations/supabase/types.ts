@@ -9,7 +9,109 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      backtest_results: {
+        Row: {
+          created_at: string | null
+          end_date: string | null
+          id: number
+          profit_percentage: number | null
+          start_date: string | null
+          total_trades: number | null
+          trading_pair_id: number | null
+          win_rate: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          end_date?: string | null
+          id?: number
+          profit_percentage?: number | null
+          start_date?: string | null
+          total_trades?: number | null
+          trading_pair_id?: number | null
+          win_rate?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          end_date?: string | null
+          id?: number
+          profit_percentage?: number | null
+          start_date?: string | null
+          total_trades?: number | null
+          trading_pair_id?: number | null
+          win_rate?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "backtest_results_trading_pair_id_fkey"
+            columns: ["trading_pair_id"]
+            isOneToOne: false
+            referencedRelation: "trading_pairs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trading_logs: {
+        Row: {
+          action: string
+          id: number
+          message: string | null
+          price: number | null
+          quantity: number | null
+          status: string | null
+          timestamp: string | null
+          trading_pair_id: number | null
+        }
+        Insert: {
+          action: string
+          id?: number
+          message?: string | null
+          price?: number | null
+          quantity?: number | null
+          status?: string | null
+          timestamp?: string | null
+          trading_pair_id?: number | null
+        }
+        Update: {
+          action?: string
+          id?: number
+          message?: string | null
+          price?: number | null
+          quantity?: number | null
+          status?: string | null
+          timestamp?: string | null
+          trading_pair_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trading_logs_trading_pair_id_fkey"
+            columns: ["trading_pair_id"]
+            isOneToOne: false
+            referencedRelation: "trading_pairs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trading_pairs: {
+        Row: {
+          created_at: string | null
+          id: number
+          last_updated: string | null
+          symbol: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          last_updated?: string | null
+          symbol: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          last_updated?: string | null
+          symbol?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
