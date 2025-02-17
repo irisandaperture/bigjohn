@@ -4,16 +4,21 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const TradingPairSelector = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const fetchTradingPairs = async () => {
     setIsLoading(true);
     try {
       const response = await supabase.functions.invoke('fetch-trading-pairs');
       if (response.error) throw response.error;
+      
+      // Refresh the trading pairs data
+      await queryClient.invalidateQueries({ queryKey: ['trading-pairs'] });
       
       toast({
         title: "Success",

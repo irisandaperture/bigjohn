@@ -4,10 +4,12 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const BacktestControls = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const startBacktest = async () => {
     setIsLoading(true);
@@ -15,9 +17,12 @@ export const BacktestControls = () => {
       const response = await supabase.functions.invoke('run-backtest');
       if (response.error) throw response.error;
       
+      // Refresh the backtest results data
+      await queryClient.invalidateQueries({ queryKey: ['backtest-results'] });
+      
       toast({
         title: "Success",
-        description: "Backtesting started successfully",
+        description: "Backtesting completed successfully",
       });
     } catch (error: any) {
       toast({

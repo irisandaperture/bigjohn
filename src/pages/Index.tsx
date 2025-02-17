@@ -3,6 +3,7 @@ import { TradingPairSelector } from "@/components/TradingPairSelector";
 import { BacktestControls } from "@/components/BacktestControls";
 import { BotControls } from "@/components/BotControls";
 import { TradingLogs } from "@/components/TradingLogs";
+import { TradingResults } from "@/components/TradingResults";
 
 const Index = () => {
   return (
@@ -23,9 +24,14 @@ const Index = () => {
           <div>
             <BotControls />
           </div>
-          <div className="md:col-span-2 lg:col-span-3">
-            <TradingLogs />
-          </div>
+        </div>
+
+        <div>
+          <TradingResults />
+        </div>
+
+        <div>
+          <TradingLogs />
         </div>
       </div>
     </div>
