@@ -39,8 +39,8 @@ serve(async (req) => {
     if (notifications && TWILIO_ACCOUNT_SID && TWILIO_AUTH_TOKEN) {
       await twilioClient.messages.create({
         body: 'Trading bot has been stopped',
-        to: '+1234567890', // Replace with actual phone number
-        from: '+1234567890' // Replace with your Twilio phone number
+        to: '+16156533833',  // User's phone number
+        from: '+18334070795' // Twilio phone number
       })
     }
 
